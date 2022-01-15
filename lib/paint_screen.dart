@@ -418,6 +418,8 @@ class _PaintScreenState extends State<PaintScreen> {
         ),
         backgroundColor: Colors.white,
         body: conditionalPaintScreen(), //만약 사람들이 아직 안들어왔으면 기다리자.
+        //https://api.flutter.dev/flutter/material/BottomAppBar-class.html
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: Container(
             margin: EdgeInsets.only(bottom: 30),
             child: FloatingActionButton(
@@ -427,11 +429,11 @@ class _PaintScreenState extends State<PaintScreen> {
               child: Text('$_start',
                   style: TextStyle(color: Colors.black, fontSize: 22)),
             )),
-        bottomNavigationBar: Container(
+        bottomNavigationBar: BottomAppBar(
           //https://api.flutter.dev/flutter/material/BottomAppBar-class.html
           key: bottomKey,
           //margin: const EdgeInsets.symmetric(horizontal: 20),
-          margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          shape: CircularNotchedRectangle(),
           child: Row(
             children: [
               IconButton(
@@ -485,6 +487,7 @@ class _PaintScreenState extends State<PaintScreen> {
                   textInputAction: TextInputAction.done,
                 ),
               ),
+              SizedBox(width: 80),
             ],
           ),
         ));
