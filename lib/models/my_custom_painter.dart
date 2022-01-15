@@ -20,11 +20,23 @@ class MyCustomPainter extends CustomPainter {
     // Logic for points, if thre is point, we need to display point.
     // if there is line, we nee dto connect the points.
 
+    /* 선 긋는데, 끝에서는 -1, -1을 보내도록 했다.
+       (x, y) ~ (-1,-1) 점을 그리게 될 경우
+       (-1, -1)은 끝이기 때문에
+       그냥 (x,y) ~ (x,y) 로 변환해서 그리고 다음으로 넘어간다.
+    */
     for (int i = 0; i < pointsList.length - 1; ++i) {
       // line
       if (pointsList[i] != null && pointsList[i + 1] != null) {
-        canvas.drawLine(pointsList[i].points, pointsList[i + 1].points,
-            pointsList[i].paint);
+        if (pointsList[i + 1].points.dx == -1 &&
+            pointsList[i + 1].points.dy == -1) {
+          canvas.drawLine(
+              pointsList[i].points, pointsList[i].points, pointsList[i].paint);
+          i += 1;
+        } else {
+          canvas.drawLine(pointsList[i].points, pointsList[i + 1].points,
+              pointsList[i].paint);
+        }
         // point
       } else if (pointsList[i] != null && pointsList[i + 1] == null) {
         offsetPoints.clear();
@@ -35,6 +47,7 @@ class MyCustomPainter extends CustomPainter {
         // https://www.youtube.com/watch?v=afCVHB2xm-g&t=336s
         offsetPoints.add(Offset(
             pointsList[i].points.dx + 0.1, pointsList[i].points.dy + 0.1));
+        print("draw 3");
         canvas.drawPoints(
             ui.PointMode.points, offsetPoints, pointsList[i].paint);
       }

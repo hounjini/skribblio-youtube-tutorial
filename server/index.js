@@ -34,14 +34,9 @@ io.on('connection', (socket) => {
     //socket.on('create-game', async({nickname, name, occupancy, maxRounds}) => {
     socket.on('create-game', async({nickname, name, maxRounds, occupancy}) => {
         try {
-            const existingRoom = await Room.findOne({name});
-            if(existingRoom) {
-                socket.emit('notCorrectGame', 'Room with the name already exist!');
-                return;
-            }
-            console.log("No room is found, let's create new one.")
-
-            let room = new Room();
+            let room = await Room.findOne({name});
+            
+            //let room = new Room();
             const word = getWord();
             room.word = word;
             room.name = name;
