@@ -428,6 +428,7 @@ class _PaintScreenState extends State<PaintScreen> {
                   style: TextStyle(color: Colors.black, fontSize: 22)),
             )),
         bottomNavigationBar: Container(
+          //https://api.flutter.dev/flutter/material/BottomAppBar-class.html
           key: bottomKey,
           //margin: const EdgeInsets.symmetric(horizontal: 20),
           margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
